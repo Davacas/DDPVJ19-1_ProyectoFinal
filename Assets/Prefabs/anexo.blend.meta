@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: 7b2da8ad85ab9e74b853a02176b13cba
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bola
+    100004: G
+    100006: H
+    100008: I
+    100010: JY
+    100012: K
+    100014: L
+    100016: M
+    100018: N
+    100020: O
+    100022: P
+    100024: P12
+    100026: Pasillo
+    100028: Piso
+    100030: Pokebola
+    100032: PuenteDCG
+    100034: PuenteKL
+    100036: Q
+    100038: R
+    100040: Referencia
+    100042: ST
+    100044: X
+    100046: Reja
+    100048: Cube
+    400000: //RootNode
+    400002: Bola
+    400004: G
+    400006: H
+    400008: I
+    400010: JY
+    400012: K
+    400014: L
+    400016: M
+    400018: N
+    400020: O
+    400022: P
+    400024: P12
+    400026: Pasillo
+    400028: Piso
+    400030: Pokebola
+    400032: PuenteDCG
+    400034: PuenteKL
+    400036: Q
+    400038: R
+    400040: Referencia
+    400042: ST
+    400044: X
+    400046: Reja
+    400048: Cube
+    2100000: unnamed
+    2100002: Material_001
+    2100004: Ladrillo
+    2100006: Blanco
+    2100008: Rojo
+    2100010: Negro
+    2100012: Reja
+    2300000: Bola
+    2300002: G
+    2300004: H
+    2300006: I
+    2300008: JY
+    2300010: K
+    2300012: L
+    2300014: M
+    2300016: N
+    2300018: O
+    2300020: P
+    2300022: P12
+    2300024: Pasillo
+    2300026: Piso
+    2300028: Pokebola
+    2300030: PuenteDCG
+    2300032: PuenteKL
+    2300034: Q
+    2300036: R
+    2300038: ST
+    2300040: X
+    2300042: Reja
+    2300044: Cube
+    3300000: Bola
+    3300002: G
+    3300004: H
+    3300006: I
+    3300008: JY
+    3300010: K
+    3300012: L
+    3300014: M
+    3300016: N
+    3300018: O
+    3300020: P
+    3300022: P12
+    3300024: Pasillo
+    3300026: Piso
+    3300028: Pokebola
+    3300030: PuenteDCG
+    3300032: PuenteKL
+    3300034: Q
+    3300036: R
+    3300038: ST
+    3300040: X
+    3300042: Reja
+    3300044: Cube
+    4300000: PuenteDCG
+    4300002: Piso
+    4300004: P12
+    4300006: ST
+    4300008: R
+    4300010: Q
+    4300012: P
+    4300014: O
+    4300016: Pokebola
+    4300018: Bola
+    4300020: Pasillo
+    4300022: N
+    4300024: X
+    4300026: H
+    4300028: I
+    4300030: PuenteKL
+    4300032: JY
+    4300034: K
+    4300036: M
+    4300038: L
+    4300040: G
+    4300042: Reja
+    4300044: Cube
+    7400000: Default Take
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 10
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

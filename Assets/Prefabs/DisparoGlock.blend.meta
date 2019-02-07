@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: 7bf86d1bccd30fc49bec9741d3e14a07
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cube_000
+    100004: Cube_001
+    100006: Cube_002
+    100008: //RootNode
+    100010: mamado-male_muscle_13290
+    100012: mixamorig_RightArm
+    100014: mixamorig_RightForeArm
+    100016: mixamorig_RightHand
+    100018: mixamorig_RightHandIndex2
+    100020: mixamorig_RightHandIndex3
+    100022: mixamorig_RightHandIndex4
+    100024: mixamorig_RightHandMiddle1
+    100026: mixamorig_RightHandMiddle2
+    100028: mixamorig_RightHandMiddle3
+    100030: mixamorig_RightHandMiddle4
+    100032: mixamorig_RightHandPinky1
+    100034: mixamorig_RightHandPinky2
+    100036: mixamorig_RightHandPinky3
+    100038: mixamorig_RightHandPinky4
+    100040: mixamorig_RightHandRing1
+    100042: mixamorig_RightHandRing2
+    100044: mixamorig_RightHandRing3
+    100046: mixamorig_RightHandRing4
+    100048: mixamorig_RightHandThumb1
+    100050: mixamorig_RightHandThumb2
+    100052: mixamorig_RightHandThumb3
+    100054: mixamorig_RightHandThumb4
+    100056: mixamorig_RightShoulder
+    400000: Armature
+    400002: Cube_000
+    400004: Cube_001
+    400006: Cube_002
+    400008: //RootNode
+    400010: mamado-male_muscle_13290
+    400012: mixamorig_RightArm
+    400014: mixamorig_RightForeArm
+    400016: mixamorig_RightHand
+    400018: mixamorig_RightHandIndex2
+    400020: mixamorig_RightHandIndex3
+    400022: mixamorig_RightHandIndex4
+    400024: mixamorig_RightHandMiddle1
+    400026: mixamorig_RightHandMiddle2
+    400028: mixamorig_RightHandMiddle3
+    400030: mixamorig_RightHandMiddle4
+    400032: mixamorig_RightHandPinky1
+    400034: mixamorig_RightHandPinky2
+    400036: mixamorig_RightHandPinky3
+    400038: mixamorig_RightHandPinky4
+    400040: mixamorig_RightHandRing1
+    400042: mixamorig_RightHandRing2
+    400044: mixamorig_RightHandRing3
+    400046: mixamorig_RightHandRing4
+    400048: mixamorig_RightHandThumb1
+    400050: mixamorig_RightHandThumb2
+    400052: mixamorig_RightHandThumb3
+    400054: mixamorig_RightHandThumb4
+    400056: mixamorig_RightShoulder
+    2100000: Material_002
+    2100002: Arma_004
+    2100004: Hoyo_004
+    2100006: DefaultSkin
+    2300000: Cube_000
+    2300002: Cube_001
+    2300004: Cube_002
+    3300000: Cube_000
+    3300002: Cube_001
+    3300004: Cube_002
+    4300000: Cube_002
+    4300002: Cube_000
+    4300004: Cube_001
+    4300006: mamado-male_muscle_13290
+    7400000: Default Take
+    7400002: Armature_mixamo_com_Layer0
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: mamado-male_muscle_13290
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 1
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.05
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.05
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7bf86d1bccd30fc49bec9741d3e14a07,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

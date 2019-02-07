@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: f3f2a337c61184b489edadf18623b3ea
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioSource: {instanceID: 0}
+  - disparo: {fileID: 8300000, guid: df515fcfc5209094c9cbc3b61fffe502, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
