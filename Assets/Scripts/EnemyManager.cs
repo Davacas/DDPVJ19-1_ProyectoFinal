@@ -3,24 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
+    //Variables para instanciado de enemigos.
     public GameObject alien;
     public GameObject alienRapido;
     public GameObject[] spawnPositions;
+    public static EnemyManager instance;
 
-    void Start() {
+    //Variables sobre spawneo de enemigos
+    private float probAlienRapido;
+    public int currentEnemies;
+    private int maxEnemies;
 
-    }
-    
-    void Update() {
-        InvokeRepeating("SpawnAlien", 0, 10);
+    void Awake() {
+        instance = this;
+        maxEnemies = 20;
+        probAlienRapido = 0.5f;
+        InvokeRepeating("SpawnAlien", 0.0f, 10.0f);
     }
 
     void SpawnAlien() {
-        if (Random.Range(0, 1) >= 0.5) {
-            Instantiate(alien, spawnPositions[Random.Range(0, 1)].transform);
+        //Si no se ha llegado al máximo de enemigos, se instancía otro.
+        if (currentEnemies < maxEnemies) {
+            if (Random.Range(0.0f, 1.0f) <= probAlienRapido) {
+                Instantiate(alienRapido, spawnPositions[Random.Range(0, 5)].transform);
+            }
+            else {
+                var enemigo = Instantiate(alien, spawnPositions[Random.Range(0, 5)].transform);
+            }
         }
-        else {
-            Instantiate(alienRapido, spawnPositions[Random.Range(0, 1)].transform);
-        }
+        currentEnemies ++;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour {
+public class FastEnemyController : MonoBehaviour {
     //Para seguir y atacar al jugador
     private NavMeshAgent enemyAgent;
     private GameObject player;
@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour {
         enemyAudio = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
         alive = true;
-        currentLife = 5;
+        currentLife = 3;
     }
 
     void Update() {
@@ -34,6 +34,12 @@ public class EnemyController : MonoBehaviour {
         if (alive) {
             if (Physics.CheckSphere(transform.position + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
                 Atacar();
+                Debug.Log("AtaqueNormal");
+            }
+            else if (Physics.CheckCapsule(transform.position + transform.up,
+                transform.forward * 10 + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
+                JumpAttack();
+                Debug.Log("AtaqueSalto");
             }
             else {
                 MoveTowardsPlayer();
@@ -41,16 +47,21 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    void OnDrawGizmos () {
-        Gizmos.DrawWireSphere(transform.position + transform.forward*3 + transform.up, 2.0f);
-    }
-
     void MoveTowardsPlayer() {
         enemyAnimator.SetFloat("Speed", enemyAgent.velocity.magnitude);
         enemyAgent.SetDestination(player.transform.position);
     }
     
-    //Método que ejecuta efectos visuales y auditivos del ataque. 
+    //Métodos que ejecutan efectos visuales y auditivos del ataque. 
+    void JumpAttack() {
+        if (alive && !enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAttack")) {
+            GetComponent<Rigidbody>().AddForce(transform.up*200 + transform.forward*200, ForceMode.Impulse);
+            if (!enemyAudio.isPlaying) enemyAudio.PlayOneShot(attackAudio);
+            enemyAnimator.SetFloat("Speed", -1);
+            enemyAnimator.SetTrigger("JumpAttack");
+        }
+    }
+
     void Atacar() {
         enemyAgent.isStopped = true;
         if (alive && !enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
