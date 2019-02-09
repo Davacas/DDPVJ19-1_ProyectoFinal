@@ -93,9 +93,11 @@ public class FastEnemyController : MonoBehaviour {
 
     void Morir() {
         if (alive) {
-            Debug.Log("Enemigo muerto.");
+            enemyAgent.isStopped = true;
+            enemyAnimator.SetFloat("Speed", -1);
             enemyAnimator.SetTrigger("Die");
             EnemyManager.instance.currentEnemies--;
+            Debug.Log("Enemigo muerto.");
         }
         alive = false;
         Destroy(this.gameObject, 3.0f);

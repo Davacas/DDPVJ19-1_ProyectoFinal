@@ -82,6 +82,8 @@ public class EnemyController : MonoBehaviour {
 
     void Morir() {
         if (alive) {
+            enemyAgent.isStopped = true;
+            enemyAnimator.SetFloat("Speed", -1);
             Debug.Log("Enemigo muerto.");
             enemyAnimator.SetTrigger("Die");
             EnemyManager.instance.currentEnemies--;

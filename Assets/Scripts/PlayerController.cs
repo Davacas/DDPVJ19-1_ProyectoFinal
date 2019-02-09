@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     //Modelos, cámaras y animaciones
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody cuerpo;
 
     //Controladores de movimiento del personaje.
+    private bool alive;
     public float speed, speedRot;
     Vector3 movimiento;
     bool firstjump;
@@ -24,10 +26,12 @@ public class PlayerController : MonoBehaviour {
     private AudioSource audioSource;
     public AudioClip disparo;
 
+    //Manejo de pantallas
+    public GameObject deathScreen;
+    //public GameObject pauseScreen;
+
     //Manejo de HUD
     public HUDBarsManager barsController;
-
-    //Barras del HUD
     private int maxLife;
     private int currentLife;
     private int maxShield;
@@ -49,35 +53,38 @@ public class PlayerController : MonoBehaviour {
         currentShield = maxShield;
         maxAmmo = 12;
         currentAmmo = maxAmmo;
+
+        alive = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Move();
-        Rotar();
-        
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            Disparar();
-        }
-        
+        if (alive) {
+            Move();
+            Rotar();
+
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                Disparar();
+            }
+        }        
     }
 
     void Move() {
         movimiento = Vector3.zero;
-        movimiento.x = Input.GetAxis("Horizontal") * speed;
-        movimiento.z = Input.GetAxis("Vertical") * speed;
+        movimiento.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        movimiento.z = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         jugador.Move(transform.TransformDirection(movimiento));
     }
 
     void Rotar() {
-        transform.Rotate(0, Input.GetAxis("Mouse X") * speedRot, 0);
+        transform.Rotate(0, Input.GetAxis("Mouse X") * speedRot * Time.deltaTime, 0);
 
         rotX = Input.GetAxis("Mouse Y");
         if (rotX > 0 && (camara.transform.localEulerAngles.x <= 90 ||camara.transform.localEulerAngles.x > 290)) {
-            camara.transform.Rotate(-rotX * speedRot, 0, 0);
+            camara.transform.Rotate(-rotX * speedRot * Time.deltaTime, 0, 0);
         }
         else if (rotX < 0 && (camara.transform.localEulerAngles.x < 80 || camara.transform.localEulerAngles.x >= 270)) {
-            camara.transform.Rotate(-rotX * speedRot, 0, 0);
+            camara.transform.Rotate(-rotX * speedRot * Time.deltaTime, 0, 0);
         }        
     }
 
@@ -96,19 +103,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Disparar() {
-        animacion.SetTrigger("Disparo");
-        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
-            barsController.setAmmoLevel(--currentAmmo, maxAmmo);
+        if (currentAmmo <= 0) {
+            currentAmmo += 12;
+        }
+        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
+            animacion.SetTrigger("Disparo");
+            currentAmmo--;
             DetectHit();
             audioSource.PlayOneShot(disparo);
             muzzleFlash.transform.Rotate(0.0f, 0.0f, Random.Range(0.0f, 360.0f));
             muzzleFlash.SetActive(true);
             StartCoroutine(HideFlash());
         }
+        barsController.setAmmoLevel(currentAmmo, maxAmmo);
     }
 
     void Morir() {
-        Debug.Log("Te moriste :(");
+        alive = false;
+        deathScreen.SetActive(true);
+        modelo.SetActive(false);
+        camara.transform.Rotate(90.0f, 0.0f, 90.0f);
+        Invoke("LoadMenu", 5.0f);
     }
 
     IEnumerator HideFlash() {
@@ -123,5 +138,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    
+    void LoadMenu() {
+        MainMenu.instance.LoadMenu();
+    }
 }
