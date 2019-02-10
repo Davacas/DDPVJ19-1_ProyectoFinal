@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour {
     //Método que ejecuta efectos visuales y auditivos del ataque. 
     void Atacar() {
         enemyAgent.isStopped = true;
-        if (alive && !enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
+        if (!enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
             if (!enemyAudio.isPlaying) enemyAudio.PlayOneShot(attackAudio);
             enemyAnimator.SetFloat("Speed", -1);
             enemyAnimator.SetTrigger("Attack");
@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour {
     //Método lanzado en un frame específico de la animación. Hace la lógica del ataque.
     void HitPlayer() {
         if (Physics.CheckSphere(transform.position + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
-            player.SendMessage("TakeDamage");
+            player.SendMessage("TakeDamage", "normal");
         }
         enemyAgent.isStopped = false;
     }
@@ -82,13 +82,12 @@ public class EnemyController : MonoBehaviour {
 
     void Morir() {
         if (alive) {
+            alive = false;
             enemyAgent.isStopped = true;
             enemyAnimator.SetFloat("Speed", -1);
-            Debug.Log("Enemigo muerto.");
             enemyAnimator.SetTrigger("Die");
             EnemyManager.instance.currentEnemies--;
         }
-        alive = false;
         Destroy(this.gameObject, 3.0f);
     }
 }

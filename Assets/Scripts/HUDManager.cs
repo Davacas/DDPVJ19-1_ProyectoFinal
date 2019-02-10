@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDBarsManager : MonoBehaviour {
+public class HUDManager : MonoBehaviour {
     public Image lifeBar;
     public Image shieldBar;
     public Image shieldFrame;
     public Image ammoBar;
+    public static HUDManager instance;
 
     // Start is called before the first frame update
-    void Start() {
-        
+    void Awake() {
+        instance = this;
     }
 
     public void setLifeLevel(int life, int maxLife) {

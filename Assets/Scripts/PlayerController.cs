@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     //Modelos, cámaras y animaciones
-    private Animator animacion;
     private Camera camara;
     private CharacterController jugador;
-    public GameObject modelo;
     private Rigidbody cuerpo;
 
     //Controladores de movimiento del personaje.
@@ -18,41 +16,32 @@ public class PlayerController : MonoBehaviour {
     bool firstjump;
     float rotX;
 
-    //Relacionados con disparos
-    private RaycastHit hit;
-    public GameObject muzzleFlash;
+    //Manejo de inventario
+    public Arma[] inventory;
+    private int currentWeapon;
 
     //Manejo de audio
     private AudioSource audioSource;
-    public AudioClip disparo;
-
-    //Manejo de pantallas
-    public GameObject deathScreen;
-    //public GameObject pauseScreen;
+    public AudioClip[] damage;
 
     //Manejo de HUD
-    public HUDBarsManager barsController;
     private int maxLife;
     private int currentLife;
     private int maxShield;
     private int currentShield;
-    private int maxAmmo;
-    private int currentAmmo;
 
     void Start () {
         jugador = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
         cuerpo = GetComponent<Rigidbody>();
         camara = Camera.main;
-        animacion = GetComponentInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>();
-
+        
         //Inicializando variables para manejo de HUD.
         maxLife = 100;
         currentLife = maxLife;
         maxShield = 100;
         currentShield = maxShield;
-        maxAmmo = 12;
-        currentAmmo = maxAmmo;
+        currentWeapon = 0;
 
         alive = true;
     }
@@ -64,7 +53,13 @@ public class PlayerController : MonoBehaviour {
             Rotar();
 
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                Disparar();
+                inventory[currentWeapon].Shoot();
+            }
+            if (Input.GetKeyDown(KeyCode.R)) {
+                inventory[currentWeapon].Reload();
+            }
+            if (Input.GetKeyDown(KeyCode.Tab)) {
+                ChangeWeapon();
             }
         }        
     }
@@ -88,57 +83,41 @@ public class PlayerController : MonoBehaviour {
         }        
     }
 
-    void TakeDamage() {
-        if (currentShield > 0) {
-            currentShield -= 10;
-            barsController.setShieldLevel(currentShield, maxShield);
+    void ChangeWeapon() {
+        //Si aún hay armas en el inventario, se cambia a la siguiente arma. Si no, se regresa a la primera.
+        
+        if (currentWeapon < inventory.Length - 1) {
+            currentWeapon++;
         }
         else {
-            currentLife -= 10;
-            barsController.setLifeLevel(currentLife, maxLife);
-        }
-        if (currentLife <= 0) {
-            Morir();
+            currentWeapon = 0;
         }
     }
 
-    void Disparar() {
-        if (currentAmmo <= 0) {
-            currentAmmo += 12;
+    void TakeDamage(string tipoEnemigo) {
+        if (alive) {
+            if (currentShield > 0) {
+                if (tipoEnemigo == "normal") currentShield -= 10;
+                else if (tipoEnemigo == "fast") currentShield -= 5;
+                HUDManager.instance.setShieldLevel(currentShield, maxShield);
+            }
+            else {
+                if (tipoEnemigo == "normal") currentLife -= 10;
+                else if (tipoEnemigo == "fast") currentLife -= 5;
+                HUDManager.instance.setLifeLevel(currentLife, maxLife);
+            }
+            audioSource.PlayOneShot(damage[Random.Range(0, 2)]);
+
+            if (currentLife <= 0) {
+                Morir();
+            }
         }
-        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
-            animacion.SetTrigger("Disparo");
-            currentAmmo--;
-            DetectHit();
-            audioSource.PlayOneShot(disparo);
-            muzzleFlash.transform.Rotate(0.0f, 0.0f, Random.Range(0.0f, 360.0f));
-            muzzleFlash.SetActive(true);
-            StartCoroutine(HideFlash());
-        }
-        barsController.setAmmoLevel(currentAmmo, maxAmmo);
     }
 
     void Morir() {
         alive = false;
-        deathScreen.SetActive(true);
-        modelo.SetActive(false);
+        inventory[0].gameObject.SetActive(false);
         camara.transform.Rotate(90.0f, 0.0f, 90.0f);
-        Invoke("LoadMenu", 5.0f);
-    }
-
-    IEnumerator HideFlash() {
-        yield return new WaitForSeconds(0.1f);
-        muzzleFlash.SetActive(false);
-    }
-
-    //Detectar si se disparó a un enemigo
-    void DetectHit() {
-        if (Physics.Raycast(camara.transform.position, camara.transform.forward, out hit, 500, 1<<9)) { //La capa 9 es la de enemigos.
-            hit.transform.SendMessage("TakeDamage");
-        }
-    }
-
-    void LoadMenu() {
-        MainMenu.instance.LoadMenu();
+        GameManager.instance.ShowDeathScreen();
     }
 }

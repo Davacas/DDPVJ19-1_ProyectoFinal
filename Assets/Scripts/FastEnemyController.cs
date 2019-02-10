@@ -34,12 +34,10 @@ public class FastEnemyController : MonoBehaviour {
         if (alive) {
             if (Physics.CheckSphere(transform.position + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
                 Atacar();
-                Debug.Log("AtaqueNormal");
             }
             else if (Physics.CheckCapsule(transform.position + transform.up,
                 transform.forward * 10 + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
                 JumpAttack();
-                Debug.Log("AtaqueSalto");
             }
             else {
                 MoveTowardsPlayer();
@@ -54,7 +52,7 @@ public class FastEnemyController : MonoBehaviour {
     
     //Métodos que ejecutan efectos visuales y auditivos del ataque. 
     void JumpAttack() {
-        if (alive && !enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAttack")) {
+        if (!enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAttack")) {
             GetComponent<Rigidbody>().AddForce(transform.up*200 + transform.forward*200, ForceMode.Impulse);
             if (!enemyAudio.isPlaying) enemyAudio.PlayOneShot(attackAudio);
             enemyAnimator.SetFloat("Speed", -1);
@@ -64,7 +62,7 @@ public class FastEnemyController : MonoBehaviour {
 
     void Atacar() {
         enemyAgent.isStopped = true;
-        if (alive && !enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
+        if (!enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
             if (!enemyAudio.isPlaying) enemyAudio.PlayOneShot(attackAudio);
             enemyAnimator.SetFloat("Speed", -1);
             enemyAnimator.SetTrigger("Attack");
@@ -72,10 +70,12 @@ public class FastEnemyController : MonoBehaviour {
     }
     //Método lanzado en un frame específico de la animación. Hace la lógica del ataque.
     void HitPlayer() {
-        if (Physics.CheckSphere(transform.position + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
-            player.SendMessage("TakeDamage");
+        if (alive) {
+            if (Physics.CheckSphere(transform.position + transform.forward * 3 + transform.up, 2.0f, 1 << 11)) {
+                player.SendMessage("TakeDamage", "fast");
+            }
+            enemyAgent.isStopped = false;
         }
-        enemyAgent.isStopped = false;
     }
 
     void TakeDamage() {
@@ -93,13 +93,12 @@ public class FastEnemyController : MonoBehaviour {
 
     void Morir() {
         if (alive) {
+            alive = false;
             enemyAgent.isStopped = true;
             enemyAnimator.SetFloat("Speed", -1);
             enemyAnimator.SetTrigger("Die");
             EnemyManager.instance.currentEnemies--;
-            Debug.Log("Enemigo muerto.");
         }
-        alive = false;
         Destroy(this.gameObject, 3.0f);
     }
 }

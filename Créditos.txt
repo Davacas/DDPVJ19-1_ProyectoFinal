@@ -1,0 +1,15 @@
+Créditos.
+	Sonidos.
+		Disparo Glock: https://freesound.org/people/michorvath/sounds/427592/
+		Rebote Balas: https://freesound.org/people/aust_paul/sounds/30932/
+		Recarga Arma: https://freesound.org/people/GreenFireSound/sounds/348155/
+
+	Modelos.
+		Makehuman
+		Modelo Glock: https://www.turbosquid.com/3d-models/free-obj-mode-simple-glock/682572
+		Modelo Alien: https://www.turbosquid.com/3d-models/free-obj-model-alien-sculpt/1088155
+
+	Texturas
+		Skybox: https://hdrihaven.com/hdri/?c=outdoor&h=green_point_park
+		Flash Arma: http://followtheart.info/kareff-Wed_6_21.html
+		https://mxcity.mx/2018/08/8-obras-monumentales-de-enrique-carbajal-sebastian/arquitectura-sebastian-2/
