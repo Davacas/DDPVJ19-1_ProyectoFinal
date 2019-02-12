@@ -7,6 +7,8 @@ public abstract class Arma : MonoBehaviour {
     protected int damage;
     protected int maxAmmo;
     protected int currentAmmo;
+    protected int currentClips;
+    protected float reloadTime;
     protected bool inInventory;
 
     //Efectos visuales.
@@ -15,8 +17,9 @@ public abstract class Arma : MonoBehaviour {
     public GameObject muzzleFlash;
     public GameObject blood;
     public GameObject debris;
+    public GameObject bulletHole;
     public ParticleSystem smoke;
-
+    
     //Efectos de sonido.
     protected AudioSource audioSource;
     public AudioClip shotSound;
@@ -32,9 +35,28 @@ public abstract class Arma : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public abstract void Shoot();
+    public void Shoot() {
+        if (currentAmmo <= 0) {
+            Reload();
+        }
+        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
+            animacion.SetTrigger("Disparo");
+            ShowFlash();
+            smoke.Play();
+            audioSource.PlayOneShot(shotSound);
+            currentAmmo--;
+            DetectHit();
+        }
+        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
+    }
 
-    public abstract void Reload();
+    public void Reload() {
+        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload") && (currentAmmo < maxAmmo) && (currentClips > 0)) {
+            animacion.SetTrigger("Reload");
+            audioSource.PlayOneShot(reloadSound);
+            StartCoroutine(FillAmmo());
+        }
+    }
 
     //Detectar si se disparó a un enemigo o al escenario.
     protected void DetectHit() {
@@ -49,9 +71,11 @@ public abstract class Arma : MonoBehaviour {
         //Se detecta si se le dió al escenario.
         else if (Physics.Raycast(camara.transform.position, camara.transform.forward, out hit, 500, 1 << 10)) { //La capa 10 es la del escenario.
             StartCoroutine(PlayRicochetSound());
+            var bulletHoleInstance = Instantiate(bulletHole, hit.point + hit.normal*0.01f, Quaternion.FromToRotation(Vector3.up, hit.normal));
             var debrisInstance = Instantiate(debris, hit.point, hit.transform.localRotation);
             debrisInstance.transform.LookAt(camara.transform);
             debrisInstance.transform.GetComponent<ParticleSystem>().Play();
+            Destroy(bulletHoleInstance, 10.0f);
             Destroy(debrisInstance, 0.5f);
         }
     }
@@ -70,5 +94,14 @@ public abstract class Arma : MonoBehaviour {
     IEnumerator HideFlash() {
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
+    }
+
+    IEnumerator FillAmmo() {
+        yield return new WaitForSeconds(reloadTime);
+        Debug.Log("Recargado");
+        currentAmmo = maxAmmo;
+        currentClips--;
+        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
+        HUDManager.instance.setClips(currentClips);
     }
 }

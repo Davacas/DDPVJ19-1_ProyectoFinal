@@ -24,11 +24,12 @@ public class PlayerController : MonoBehaviour {
     private AudioSource audioSource;
     public AudioClip[] damage;
 
-    //Manejo de HUD
+    //Propiedades del personaje.
     private int maxLife;
     private int currentLife;
     private int maxShield;
     private int currentShield;
+    private int currentMoney;
 
     void Start () {
         jugador = GetComponent<CharacterController>();
@@ -36,12 +37,13 @@ public class PlayerController : MonoBehaviour {
         cuerpo = GetComponent<Rigidbody>();
         camara = Camera.main;
         
-        //Inicializando variables para manejo de HUD.
+        //Inicializando variables propiedades del jugador.
         maxLife = 100;
         currentLife = maxLife;
         maxShield = 100;
         currentShield = maxShield;
         currentWeapon = 0;
+        currentMoney = 0;
 
         alive = true;
     }
@@ -116,8 +118,8 @@ public class PlayerController : MonoBehaviour {
 
     void Morir() {
         alive = false;
-        inventory[0].gameObject.SetActive(false);
-        camara.transform.Rotate(90.0f, 0.0f, 90.0f);
+        inventory[currentWeapon].gameObject.SetActive(false);
+        camara.GetComponent<Animator>().SetTrigger("Die");
         GameManager.instance.ShowDeathScreen();
     }
 }

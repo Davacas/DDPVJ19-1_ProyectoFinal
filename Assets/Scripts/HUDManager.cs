@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUDManager : MonoBehaviour {
     public Image lifeBar;
     public Image shieldBar;
     public Image shieldFrame;
     public Image ammoBar;
+    public TextMeshProUGUI clipsText;
+    public TextMeshProUGUI moneyText;
     public static HUDManager instance;
 
     // Start is called before the first frame update
@@ -33,4 +34,11 @@ public class HUDManager : MonoBehaviour {
         ammoBar.fillAmount = (float)ammo / (float)maxAmmo;
     }
 
+    public void setClips(int clips) {
+        clipsText.text = clips.ToString();
+    }
+
+    public void setMoney(int money) {
+        moneyText.text = money.ToString();
+    }
 }

@@ -8,29 +8,9 @@ public class Pistola : Arma {
         damage = 1;
         maxAmmo = 12;
         currentAmmo = maxAmmo;
+        currentClips = 5;
+        HUDManager.instance.setClips(currentClips);
+        reloadTime = 2.0f;
         smoke = GetComponentInChildren<ParticleSystem>();
-        //animacion = GetComponentInChildren<Animator>();
-    }
-
-    public override void Shoot() {
-        if (currentAmmo <= 0) {
-            Reload();
-        }
-        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
-            animacion.SetTrigger("Disparo");
-            ShowFlash();
-            smoke.Play();
-            audioSource.PlayOneShot(shotSound);
-            currentAmmo--;
-            DetectHit();            
-        }
-        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
-    }   
-
-    public override void Reload() {
-        currentAmmo = maxAmmo;
-        //animacion.SetTrigger("Reload");
-        audioSource.PlayOneShot(reloadSound);
-        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
     }
 }
