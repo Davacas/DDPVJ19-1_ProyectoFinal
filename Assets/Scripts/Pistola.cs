@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pistola : Arma { 
     void Start() {
         inInventory = true;
+        isAuto = false;
         damage = 1;
         maxAmmo = 12;
         currentAmmo = maxAmmo;

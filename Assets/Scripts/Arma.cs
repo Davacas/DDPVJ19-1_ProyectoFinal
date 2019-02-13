@@ -9,7 +9,10 @@ public abstract class Arma : MonoBehaviour {
     protected int currentAmmo;
     protected int currentClips;
     protected float reloadTime;
-    protected bool inInventory;
+    protected float fireRate;
+    public bool inInventory;
+    public bool isAuto;
+    public bool reloading;
 
     //Efectos visuales.
     public Animator animacion;
@@ -36,11 +39,11 @@ public abstract class Arma : MonoBehaviour {
     }
 
     public void Shoot() {
-        if (currentAmmo <= 0) {
+        if (currentAmmo <= 0 && !reloading) {
             Reload();
         }
-        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Disparo")) {
-            animacion.SetTrigger("Disparo");
+        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Shooting") && !reloading) {
+            animacion.SetTrigger("Shoot");
             ShowFlash();
             smoke.Play();
             audioSource.PlayOneShot(shotSound);
@@ -51,6 +54,7 @@ public abstract class Arma : MonoBehaviour {
     }
 
     public void Reload() {
+        reloading = true;
         if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload") && (currentAmmo < maxAmmo) && (currentClips > 0)) {
             animacion.SetTrigger("Reload");
             audioSource.PlayOneShot(reloadSound);
@@ -58,8 +62,20 @@ public abstract class Arma : MonoBehaviour {
         }
     }
 
+    public void Withdraw() {
+        gameObject.SetActive(true);
+        //animacion.SetTrigger("Withdraw");
+        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
+        HUDManager.instance.setClips(currentClips);
+    }
+
+    public void Hide() {
+        //animacion.SetTrigger("Hide");
+        StartCoroutine(Disable());
+    }
+
     //Detectar si se disparó a un enemigo o al escenario.
-    protected void DetectHit() {
+    void DetectHit() {
         //Se detecta si se le dió a un enemigo.
         if (Physics.Raycast(camara.transform.position, camara.transform.forward, out hit, 500, 1 << 9)) { //La capa 9 es la de enemigos.
             hit.transform.SendMessage("TakeDamage");
@@ -79,8 +95,8 @@ public abstract class Arma : MonoBehaviour {
             Destroy(debrisInstance, 0.5f);
         }
     }
-
-    protected void ShowFlash() {
+    
+    void ShowFlash() {
         muzzleFlash.transform.Rotate(0.0f, 0.0f, Random.Range(0.0f, 360.0f));
         muzzleFlash.SetActive(true);
         StartCoroutine(HideFlash());
@@ -98,10 +114,15 @@ public abstract class Arma : MonoBehaviour {
 
     IEnumerator FillAmmo() {
         yield return new WaitForSeconds(reloadTime);
-        Debug.Log("Recargado");
         currentAmmo = maxAmmo;
         currentClips--;
         HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
         HUDManager.instance.setClips(currentClips);
+        reloading = false;
+    }
+
+    IEnumerator Disable() {
+        yield return new WaitForSeconds(0.3f);
+        gameObject.SetActive(false);
     }
 }

@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 inventory[currentWeapon].Shoot();
             }
+            if (Input.GetKey(KeyCode.Mouse0) && inventory[currentWeapon].isAuto) {
+                inventory[currentWeapon].Shoot();
+            }
             if (Input.GetKeyDown(KeyCode.R)) {
                 inventory[currentWeapon].Reload();
             }
@@ -85,15 +88,20 @@ public class PlayerController : MonoBehaviour {
         }        
     }
 
+    //MODIFICAR ESTE MÉTODO AL AGREGAR MÁS ARMAS.
     void ChangeWeapon() {
-        //Si aún hay armas en el inventario, se cambia a la siguiente arma. Si no, se regresa a la primera.
-        
-        if (currentWeapon < inventory.Length - 1) {
-            currentWeapon++;
-        }
-        else {
+        Debug.Log("Cambio de arma.");
+        if (currentWeapon == inventory.Length-1) { //Si es la última arma, se cambia a la primera.
+            inventory[currentWeapon].Hide();
             currentWeapon = 0;
+            inventory[currentWeapon].Withdraw();
         }
+        else if (inventory[currentWeapon + 1].inInventory) {
+            inventory[currentWeapon].Hide();
+            currentWeapon++;
+            inventory[currentWeapon].Withdraw();
+        }        
+        
     }
 
     void TakeDamage(string tipoEnemigo) {
