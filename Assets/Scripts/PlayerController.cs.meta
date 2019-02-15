@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - audioSource: {instanceID: 0}
   - disparo: {fileID: 8300000, guid: df515fcfc5209094c9cbc3b61fffe502, type: 3}
-  executionOrder: 0
+  executionOrder: 200
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

@@ -1,8 +1,10 @@
 Créditos.
 	Sonidos.
 		Disparo Glock: https://freesound.org/people/michorvath/sounds/427592/
+		Recarga Glock: https://freesound.org/people/GreenFireSound/sounds/348155/
+		Disparo AK47: https://freesound.org/people/duesto/sounds/156073/
+		Recarga AK47:
 		Rebote Balas: https://freesound.org/people/aust_paul/sounds/30932/
-		Recarga Arma: https://freesound.org/people/GreenFireSound/sounds/348155/
 
 	Modelos.
 		Makehuman

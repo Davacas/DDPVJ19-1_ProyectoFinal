@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828df96e84379b14085e9cfe5a6dc36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tesseract: {fileID: 1291492273, guid: 8ede508e9ddda524cbabc4dfb2bade33, type: 3}
   attackAudio: {fileID: 8300000, guid: 608c74b24f9e50a49b6d94f3331585e4, type: 3}
 --- !u!195 &162389507
 NavMeshAgent:

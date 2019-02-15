@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     //public GameObject pauseScreen;
     public GameObject deathScreen;
+    public GameObject storeScreen;
     public static GameManager instance;
 
 
@@ -19,5 +20,13 @@ public class GameManager : MonoBehaviour {
 
     public void LoadMenu() {
         MainMenu.instance.LoadMenu();
+    }
+
+    public void Pause() {
+
+    }
+
+    public void ShowStore() {
+
     }
 }

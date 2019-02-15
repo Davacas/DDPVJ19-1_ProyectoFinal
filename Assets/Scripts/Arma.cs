@@ -7,7 +7,7 @@ public abstract class Arma : MonoBehaviour {
     protected int damage;
     protected int maxAmmo;
     protected int currentAmmo;
-    protected int currentClips;
+    public int currentClips;
     protected float reloadTime;
     protected float fireRate;
     public bool inInventory;
@@ -44,6 +44,8 @@ public abstract class Arma : MonoBehaviour {
         }
         else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Shooting") && !reloading) {
             animacion.SetTrigger("Shoot");
+            camara.transform.Rotate(0, Random.Range(-1.0f, 1.0f), 0);
+            camara.transform.Rotate(Random.Range(-1.0f, 1.0f), 0, 0);
             ShowFlash();
             smoke.Play();
             audioSource.PlayOneShot(shotSound);
@@ -70,6 +72,7 @@ public abstract class Arma : MonoBehaviour {
     }
 
     public void Hide() {
+        reloading = false;
         //animacion.SetTrigger("Hide");
         StartCoroutine(Disable());
     }
@@ -108,7 +111,7 @@ public abstract class Arma : MonoBehaviour {
     }
 
     IEnumerator HideFlash() {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         muzzleFlash.SetActive(false);
     }
 

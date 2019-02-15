@@ -39,6 +39,6 @@ public class HUDManager : MonoBehaviour {
     }
 
     public void setMoney(int money) {
-        moneyText.text = money.ToString();
+        moneyText.text = "= "+ money.ToString();
     }
 }

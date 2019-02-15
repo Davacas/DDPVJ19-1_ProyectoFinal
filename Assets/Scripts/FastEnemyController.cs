@@ -8,6 +8,7 @@ public class FastEnemyController : MonoBehaviour {
     private NavMeshAgent enemyAgent;
     private GameObject player;
     private RaycastHit VisionHit;
+    public GameObject tesseract;
 
     //Manejo de audio
     private AudioSource enemyAudio;
@@ -99,6 +100,7 @@ public class FastEnemyController : MonoBehaviour {
             enemyAnimator.SetTrigger("Die");
             EnemyManager.instance.currentEnemies--;
         }
+        TesseractManager.instance.SpawnTesseract(transform.position);
         Destroy(this.gameObject, 3.0f);
     }
 }

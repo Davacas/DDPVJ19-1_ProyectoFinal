@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a19e67b98a8b6478c7472c71bb579f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tesseract: {fileID: 1291492273, guid: 8ede508e9ddda524cbabc4dfb2bade33, type: 3}
   attackAudio: {fileID: 8300000, guid: 52c934e127855314a89df233d9611516, type: 3}
 --- !u!1 &367036683
 GameObject:

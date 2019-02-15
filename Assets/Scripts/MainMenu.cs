@@ -10,10 +10,12 @@ public class MainMenu : MonoBehaviour {
 
     public void LoadMenu() {
         SceneManager.LoadScene(0);
+        Cursor.visible = true;
     }
 
     public void LoadSinglePlayer() {
         SceneManager.LoadScene(1);
+        Cursor.visible = false;
     }
 
     public void LoadMultiPlayer() {

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     //Modelos, cámaras y animaciones
+    public static PlayerController instance;
     private Camera camara;
     private CharacterController jugador;
     private Rigidbody cuerpo;
@@ -25,13 +26,16 @@ public class PlayerController : MonoBehaviour {
     public AudioClip[] damage;
 
     //Propiedades del personaje.
-    private int maxLife;
-    private int currentLife;
-    private int maxShield;
-    private int currentShield;
-    private int currentMoney;
+    public int maxLife;
+    public int currentLife;
+    public int maxShield;
+    public int currentShield;
+    public int currentMoney;
+    public bool shopping;
 
-    void Start () {
+    void Awake () {
+        shopping = false;
+        instance = this;
         jugador = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         cuerpo = GetComponent<Rigidbody>();
@@ -44,13 +48,14 @@ public class PlayerController : MonoBehaviour {
         currentShield = maxShield;
         currentWeapon = 0;
         currentMoney = 0;
+        HUDManager.instance.setMoney(currentMoney);
 
         alive = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (alive) {
+        if (alive && !shopping) {
             Move();
             Rotar();
 
