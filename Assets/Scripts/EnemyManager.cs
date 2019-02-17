@@ -17,8 +17,8 @@ public class EnemyManager : MonoBehaviour {
     void Awake() {
         instance = this;
         maxEnemies = 20;
-        probAlienRapido = 0.5f;
-        InvokeRepeating("SpawnAlien", 0.0f, 10.0f);
+        probAlienRapido = 0.75f;
+        InvokeRepeating("SpawnAlien", 0.0f, 20.0f);
     }
 
     void SpawnAlien() {

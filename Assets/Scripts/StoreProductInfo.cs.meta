@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 5d026141d8394c14ebad42fafa78b462
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - paracetamolImage: {instanceID: 0}
+  - armorImage: {instanceID: 0}
+  - coffeeImage: {instanceID: 0}
+  - miniradarImage: {instanceID: 0}
+  - multimeterImage: {instanceID: 0}
+  - batImage: {instanceID: 0}
+  - smgImage: {instanceID: 0}
+  - akImage: {instanceID: 0}
+  - shotgunImage: {instanceID: 0}
+  - rpgImage: {instanceID: 0}
+  - pistolAmmoImage: {instanceID: 0}
+  - smgAmmoImage: {instanceID: 0}
+  - akAmmoImage: {instanceID: 0}
+  - shotgunAmmoImage: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

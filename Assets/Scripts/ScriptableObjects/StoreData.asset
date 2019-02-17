@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d026141d8394c14ebad42fafa78b462, type: 3}
+  m_Name: StoreData
+  m_EditorClassIdentifier: 
+  paracetamolImage: {fileID: 21300000, guid: 150d09475cc478e499345edd72229ee8, type: 3}
+  paracetamolName: Paracetamol
+  paracetamolDesc: Recupera todos tus puntos de vida (barrita roja).
+  paracetamolPrice: 1
+  armorImage: {fileID: 21300000, guid: 6e6eb54c46b24494bb0ec5eff0ad41b5, type: 3}
+  armorName: Escudo
+  armorDesc: Recupera todos tus puntos de escudo (barrita azul).
+  armorPrice: 2
+  coffeeImage: {fileID: 21300000, guid: d381b846c46d7a54eb797cb2d1919ee6, type: 3}
+  coffeeName: Cafe
+  coffeeDesc: Aumenta tu velocidad por 60 segundos.
+  coffePrice: 2
+  miniradarImage: {fileID: 21300000, guid: 1fc4e37abd5d09645bfcd85651a78027, type: 3}
+  miniradarName: Minimapa
+  miniradarDesc: "Obesrva la posici\xF3n de los enemigos en tiempo real."
+  miniradarPrice: 50
+  multimeterImage: {fileID: 21300000, guid: c777d2bfc1c42f04db53a27db4f10692, type: 3}
+  multimeterName: Multimetro
+  multimeterDesc: "Tal vez alg\xFAn dia te sirva."
+  multimeterPrice: 0
+  batImage: {fileID: 21300000, guid: 3104b0abef5ca2b4f8a6e6320bb74309, type: 3}
+  batName: Bat
+  batDesc: "Puede ser \xFAtil si te quedas sin balas."
+  batPrice: 5
+  smgImage: {fileID: 21300000, guid: 3c0655e70e008a3409b531cd765db308, type: 3}
+  smgName: Subfusil
+  smgDesc: "Mismo da\xF1o que la pistola, pero dispara m\xE1s rapido."
+  smgPrice: 20
+  akImage: {fileID: 21300000, guid: 8302480891826e24191309f5533459a2, type: 3}
+  akName: Fusil de asalto
+  akDesc: "Hace m\xE1s da\xF1o que la pistola y dispara m\xE1s rapido."
+  akPrice: 30
+  shotgunImage: {fileID: 21300000, guid: 2903e8c012677aa41b8ca94652d1b7cc, type: 3}
+  shotgunName: Escopeta
+  shotgunDesc: "\xA1Mata casi todo de un balazo!"
+  shotgunPrice: 50
+  rpgImage: {fileID: 21300000, guid: 9c126b62899e1e2498d9e82a662daf6a, type: 3}
+  rpgName: Lanza Cohetes
+  rpgDesc: "Mata a todos los enemigos en un \xE1rea grande. S\xF3lo tiene un tiro."
+  rpgPrice: 50
+  pistolAmmoImage: {fileID: 21300000, guid: 563cf97f584143f4886a6dc382036330, type: 3}
+  pistolAmmoName: Pistola
+  pistolAmmoDesc: 3 clips de balas de pistola.
+  pistolAmmoPrice: 1
+  smgAmmoImage: {fileID: 21300000, guid: c9380d174e454ff46a0aecfb7b6792cf, type: 3}
+  smgAmmoName: Subfusil
+  smgAmmoDesc: 3 clips de balas de subfusil.
+  smgAmmoPrice: 2
+  akAmmoImage: {fileID: 21300000, guid: 92eba4cee8a48ca4586bb554178891c4, type: 3}
+  akAmmoName: Fusil de asalto.
+  akAmmoDesc: 3 clips de balas de fusil de asalto.
+  akAmmoPrice: 3
+  shotgunAmmoImage: {fileID: 21300000, guid: 2038212ff6ae7964cbcc145f93b64a7f, type: 3}
+  shotgunAmmoName: Escopeta
+  shotgunAmmoDesc: 20 balas de escopeta.
+  shotgunAmmoPrice: 5
