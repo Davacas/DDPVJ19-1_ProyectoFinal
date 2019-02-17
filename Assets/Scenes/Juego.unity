@@ -97,15 +97,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 30
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -2364,7 +2364,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 250}
+  m_SizeDelta: {x: 650, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335745569
 MonoBehaviour:
@@ -3574,7 +3574,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300046, guid: 7b2da8ad85ab9e74b853a02176b13cba, type: 3}
 --- !u!65 &486306814
@@ -3646,7 +3646,8 @@ MonoBehaviour:
   shotgunAmmoName: {fileID: 913644329}
   shotgunAmmoPrice: {fileID: 1808134421}
   akButtonText: {fileID: 563642344}
-  useText: {fileID: 1503510044}
+  multimButtonText: {fileID: 1742961999}
+  shopText: {fileID: 1503510044}
   storePanel: {fileID: 996712895}
   hover: {fileID: 8300000, guid: d463b70230892084d8b8923d8bd71cf0, type: 3}
   error: {fileID: 8300000, guid: 7572285e9e7924e4aa24be2c5baef6ea, type: 3}
@@ -19142,7 +19143,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1828741194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 486306817}
+        m_MethodName: BuyMultimeter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1828741194
@@ -19582,6 +19594,7 @@ GameObject:
   - component: {fileID: 1925280830}
   - component: {fileID: 1925280831}
   - component: {fileID: 1925280832}
+  - component: {fileID: 1925280833}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -19605,8 +19618,11 @@ MonoBehaviour:
   shieldBar: {fileID: 702880337}
   shieldFrame: {fileID: 1048284294}
   ammoBar: {fileID: 2137639055}
+  crosshair: {fileID: 1962990454}
   clipsText: {fileID: 1337930505}
   moneyText: {fileID: 1458547684}
+  enemyAimColor: {r: 1, g: 0, b: 0, a: 1}
+  envAimColor: {r: 1, g: 0, b: 0, a: 0.39215687}
 --- !u!4 &1925280829
 Transform:
   m_ObjectHideFlags: 0
@@ -19669,6 +19685,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tesseract: {fileID: 1291492273, guid: 8ede508e9ddda524cbabc4dfb2bade33, type: 3}
+--- !u!114 &1925280833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925280827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6661f174a7cc584ca77be785f349551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objDesc: {fileID: 335745569}
 --- !u!1 &1936506642
 GameObject:
   m_ObjectHideFlags: 0
@@ -19996,7 +20025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

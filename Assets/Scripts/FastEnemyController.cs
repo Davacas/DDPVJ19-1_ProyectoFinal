@@ -13,6 +13,7 @@ public class FastEnemyController : MonoBehaviour {
     //Manejo de audio
     private AudioSource enemyAudio;
     public AudioClip attackAudio;
+    public AudioClip[] damageAudio;
 
     //Propiedades del enemigo
     private Animator enemyAnimator;
@@ -80,6 +81,7 @@ public class FastEnemyController : MonoBehaviour {
     }
 
     void TakeDamage() {
+        enemyAudio.PlayOneShot(damageAudio[Random.Range(0, damageAudio.Length)]);
         enemyAnimator.SetFloat("Speed", -1);
         if (alive) {
             currentLife -= 1;

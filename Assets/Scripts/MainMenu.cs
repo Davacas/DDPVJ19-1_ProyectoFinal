@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour {
     public void LoadMenu() {
         SceneManager.LoadScene(0);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void LoadSinglePlayer() {
@@ -26,6 +27,7 @@ public class MainMenu : MonoBehaviour {
         menuAudio.PlayOneShot(clic);
         SceneManager.LoadScene(1);
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void LoadMultiPlayer() {

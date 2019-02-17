@@ -60,8 +60,10 @@ public class StoreManager : MonoBehaviour {
 
     //GUI
     private bool akAgotada = false;
+    private bool multimVendido = false;
     public TextMeshProUGUI akButtonText;
-    public TextMeshProUGUI useText;
+    public TextMeshProUGUI multimButtonText;
+    public TextMeshProUGUI shopText;
     public GameObject storePanel;
 
     //Sounds
@@ -133,8 +135,8 @@ public class StoreManager : MonoBehaviour {
     void OnTriggerEnter(Collider collider) {
         if (collider.gameObject.tag == "Player") {
             Debug.Log("Frente a la tienda;");
-            useText.SetText("Presiona 'E' para comprar.");
-            useText.gameObject.SetActive(true);
+            shopText.SetText("Presiona 'E' para comprar.");
+            shopText.gameObject.SetActive(true);
         }
     }
 
@@ -150,7 +152,7 @@ public class StoreManager : MonoBehaviour {
 
     void OnTriggerExit(Collider collider) {
         if (collider.gameObject.tag == "Player") {
-            useText.gameObject.SetActive(false);
+            shopText.gameObject.SetActive(false);
         }
     }
 
@@ -158,23 +160,6 @@ public class StoreManager : MonoBehaviour {
         storePanel.SetActive(false);
         Cursor.visible = false;
         player.shopping = false;
-    }
-
-    public void BuyAK() {
-        if (player.currentMoney >= info.akPrice && !akAgotada) {
-            player.currentMoney -= info.akPrice;
-            player.inventory[(int)Guns.AK47].inInventory = true;
-            HUDManager.instance.setMoney(player.currentMoney);
-            akButtonText.SetText("Agotado");
-            akAgotada = true;
-            storeAudio.PlayOneShot(sold);
-        }
-        else {
-            storeAudio.PlayOneShot(error);
-            descriptions.color = Color.red;
-            if (akAgotada) descriptions.SetText("No te alcanza para comprar ese producto.");
-            else descriptions.SetText("No te alcanza para comprar ese producto.");
-        }
     }
 
     public void BuyLife() {
@@ -196,7 +181,7 @@ public class StoreManager : MonoBehaviour {
         if (player.currentMoney >= info.armorPrice) {
             player.currentMoney -= info.armorPrice;
             player.currentShield = player.maxShield;
-            HUDManager.instance.setLifeLevel(player.currentShield, player.maxShield);
+            HUDManager.instance.setShieldLevel(player.currentShield, player.maxShield);
             HUDManager.instance.setMoney(player.currentMoney);
             storeAudio.PlayOneShot(sold);
         }
@@ -219,6 +204,40 @@ public class StoreManager : MonoBehaviour {
             storeAudio.PlayOneShot(error);
             descriptions.SetText("No te alcanza para comprar ese producto.");
             descriptions.color = Color.red;
+        }
+    }
+
+    public void BuyMultimeter() {
+        if (player.currentMoney >= info.multimeterPrice && !multimVendido) {
+            player.currentMoney -= info.multimeterPrice;
+            HUDManager.instance.setMoney(player.currentMoney);
+            multimButtonText.SetText("Agotado");
+            multimVendido = true;
+            storeAudio.PlayOneShot(sold);
+            ObjectivesManager.instance.EndObjective1();
+        }
+        else {
+            storeAudio.PlayOneShot(error);
+            descriptions.color = Color.red;
+            if (multimVendido) descriptions.SetText("Este producto ya está en tu inventario.");
+            else descriptions.SetText("No te alcanza para comprar ese producto.");
+        }
+    }
+
+    public void BuyAK() {
+        if (player.currentMoney >= info.akPrice && !akAgotada) {
+            player.currentMoney -= info.akPrice;
+            player.inventory[(int)Guns.AK47].inInventory = true;
+            HUDManager.instance.setMoney(player.currentMoney);
+            akButtonText.SetText("Agotado");
+            akAgotada = true;
+            storeAudio.PlayOneShot(sold);
+        }
+        else {
+            storeAudio.PlayOneShot(error);
+            descriptions.color = Color.red;
+            if (akAgotada) descriptions.SetText("Este producto ya está en tu inventario.");
+            else descriptions.SetText("No te alcanza para comprar ese producto.");
         }
     }
 

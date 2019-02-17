@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     //Modelos, cámaras y animaciones
-    public static PlayerController instance;
+    public static PlayerController instance; 
     private Camera camara;
     private CharacterController jugador;
     private Rigidbody cuerpo;
@@ -54,6 +55,12 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Physics.Raycast(camara.transform.position, camara.transform.forward, 500, 1 << 9)) { //La capa 9 es la de enemigos.
+            HUDManager.instance.setHighCrosshairAlpha();
+        }
+        else {
+            HUDManager.instance.setLowCrosshairAlpha();
+        }
         if (alive && !shopping) {
             Move();
             Rotar();
@@ -133,5 +140,6 @@ public class PlayerController : MonoBehaviour {
         inventory[currentWeapon].gameObject.SetActive(false);
         camara.GetComponent<Animator>().SetTrigger("Die");
         GameManager.instance.ShowDeathScreen();
+        if (shopping) SendMessage("CloseShop");
     }
 }

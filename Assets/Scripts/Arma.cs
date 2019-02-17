@@ -39,7 +39,7 @@ public abstract class Arma : MonoBehaviour {
     }
 
     public void Shoot() {
-        if (currentAmmo <= 0 && !reloading) {
+        if ((currentAmmo <= 0) && (!reloading) && (currentClips > 0) && (currentAmmo < maxAmmo)) {
             Reload();
         }
         else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Shooting") && !reloading) {
@@ -57,7 +57,7 @@ public abstract class Arma : MonoBehaviour {
 
     public void Reload() {
         reloading = true;
-        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload") && (currentAmmo < maxAmmo) && (currentClips > 0)) {
+        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload")) {
             animacion.SetTrigger("Reload");
             audioSource.PlayOneShot(reloadSound);
             StartCoroutine(FillAmmo());

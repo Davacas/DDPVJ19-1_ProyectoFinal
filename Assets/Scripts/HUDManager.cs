@@ -7,9 +7,12 @@ public class HUDManager : MonoBehaviour {
     public Image shieldBar;
     public Image shieldFrame;
     public Image ammoBar;
+    public Image crosshair;
     public TextMeshProUGUI clipsText;
     public TextMeshProUGUI moneyText;
     public static HUDManager instance;
+    public Color enemyAimColor;
+    public Color envAimColor;
 
     // Start is called before the first frame update
     void Awake() {
@@ -28,6 +31,14 @@ public class HUDManager : MonoBehaviour {
         else {
             shieldFrame.gameObject.SetActive(true);
         }
+    }
+
+    public void setHighCrosshairAlpha() {
+        crosshair.color = enemyAimColor;
+    }
+
+    public void setLowCrosshairAlpha() {
+        crosshair.color = envAimColor;
     }
 
     public void setAmmoLevel(int ammo, int maxAmmo) {
