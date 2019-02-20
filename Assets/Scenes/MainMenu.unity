@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 884500689}
   - component: {fileID: 884500690}
   - component: {fileID: 884500688}
+  - component: {fileID: 884500691}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -763,6 +764,8 @@ MonoBehaviour:
   hover: {fileID: 8300000, guid: d463b70230892084d8b8923d8bd71cf0, type: 3}
   clic: {fileID: 8300000, guid: bb5c9b70c0b70cf45adf9a95ced2eb5c, type: 3}
   fade: {fileID: 35242277}
+  startColor: {r: 0, g: 0, b: 0, a: 1}
+  endColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &884500689
 Transform:
   m_ObjectHideFlags: 0
@@ -874,6 +877,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &884500691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884500687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d4391c30b4ae647b12f26ee728cc91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5a190b8da39d29343a95a76aae39a641, type: 2}
 --- !u!1 &1156117181
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ ModelImporter:
     100048: Cube
     100050: Plane
     100052: Store
+    100054: ElecPanel
     400000: //RootNode
     400002: Bola
     400004: G
@@ -57,6 +58,7 @@ ModelImporter:
     400048: Cube
     400050: Plane
     400052: Store
+    400054: ElecPanel
     2100000: unnamed
     2100002: Material_001
     2100004: Ladrillo
@@ -89,6 +91,7 @@ ModelImporter:
     2300044: Cube
     2300046: Plane
     2300048: Store
+    2300050: ElecPanel
     3300000: Bola
     3300002: G
     3300004: H
@@ -114,6 +117,7 @@ ModelImporter:
     3300044: Cube
     3300046: Plane
     3300048: Store
+    3300050: ElecPanel
     4300000: PuenteDCG
     4300002: Piso
     4300004: P12
@@ -139,6 +143,7 @@ ModelImporter:
     4300044: Cube
     4300046: Store
     4300048: Plane
+    4300050: ElecPanel
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
@@ -182,7 +187,7 @@ ModelImporter:
     importCameras: 0
     importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

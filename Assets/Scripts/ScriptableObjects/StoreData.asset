@@ -31,7 +31,7 @@ MonoBehaviour:
   multimeterImage: {fileID: 21300000, guid: c777d2bfc1c42f04db53a27db4f10692, type: 3}
   multimeterName: Multimetro
   multimeterDesc: "Tal vez alg\xFAn dia te sirva."
-  multimeterPrice: 0
+  multimeterPrice: 10
   batImage: {fileID: 21300000, guid: 3104b0abef5ca2b4f8a6e6320bb74309, type: 3}
   batName: Bat
   batDesc: "Puede ser \xFAtil si te quedas sin balas."

@@ -187,6 +187,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6a7dc376f4ad6d14382dd4182575877f, type: 3}
   - {fileID: 8300000, guid: 7551ca317f920944bac945c06edf9f0f, type: 3}
   - {fileID: 8300000, guid: 9f1815596640fa649b83ed79d0c701e6, type: 3}
+  rend: {fileID: 2071667171078715145}
+  fadeMaterial: {fileID: 2100000, guid: 645e462148baa5442b9e96ae96a35fa5, type: 2}
 --- !u!195 &162389507
 NavMeshAgent:
   m_ObjectHideFlags: 0

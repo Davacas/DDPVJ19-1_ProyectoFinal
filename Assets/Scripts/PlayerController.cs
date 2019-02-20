@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody cuerpo;
 
     //Controladores de movimiento del personaje.
-    private bool alive;
+    public bool alive;
     public float speed, speedRot;
     Vector3 movimiento;
     bool firstjump;
@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour {
     public int maxShield;
     public int currentShield;
     public int currentMoney;
-    public bool shopping;
+    public bool openPanel;
 
     void Awake () {
-        shopping = false;
+        openPanel = false;
         instance = this;
         jugador = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
         maxShield = 100;
         currentShield = maxShield;
         currentWeapon = 0;
-        currentMoney = 0;
+        currentMoney = 100;
         HUDManager.instance.setMoney(currentMoney);
 
         alive = true;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
         else {
             HUDManager.instance.setLowCrosshairAlpha();
         }
-        if (alive && !shopping) {
+        if (alive && !openPanel) {
             Move();
             Rotar();
 
@@ -140,6 +140,14 @@ public class PlayerController : MonoBehaviour {
         inventory[currentWeapon].gameObject.SetActive(false);
         camara.GetComponent<Animator>().SetTrigger("Die");
         GameManager.instance.ShowDeathScreen();
-        if (shopping) SendMessage("CloseShop");
+        if (openPanel) SendMessage("ClosePanel");
+        ObjectivesManager.instance.StopAllCoroutines();
+        StartCoroutine(ShowEnd());        
+    }
+
+    IEnumerator ShowEnd() {
+        yield return new WaitForSeconds(5.0f);
+        GameManager.instance.dead = true;
+        GameManager.instance.exit = true;
     }
 }
