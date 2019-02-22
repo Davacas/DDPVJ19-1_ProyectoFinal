@@ -9,8 +9,6 @@ public class AudioManager : MonoBehaviour {
     
     void Awake() {
         instance = this;
-        AudioManager.instance.SetMusicVolume(0);
-        AudioManager.instance.SetSFXVolume(0);
     }
 
     void Start() {

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GetFuse : MonoBehaviour {
     private MeshRenderer[] model;
@@ -21,14 +19,14 @@ public class GetFuse : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider collider) {
-        if (collider.gameObject.tag == "Player" && ObjectivesManager.instance.currentObjective == 4) {
+        if (collider.gameObject.tag == "Player" && ObjectivesManager.instance.currentObjective == 5) {
             fuseCollider.enabled = false;
             foreach (var mesh in model) {
                 mesh.enabled = false;
             }            
             fuseLight.enabled = false;
             Destroy(this.gameObject, 1.0f);
-            ObjectivesManager.instance.StartObjective5();
+            ObjectivesManager.instance.StartObjective6();
         }
     }
     

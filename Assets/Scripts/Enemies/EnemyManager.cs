@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
     //Variables para instanciado de enemigos.
@@ -22,7 +20,6 @@ public class EnemyManager : MonoBehaviour {
         maxEnemies = 20;
         probAlienRapido = 0.75f;
         spawnTime = 20.0f;
-        InvokeRepeating("SpawnAlien", 0.0f, spawnTime);
     }
 
     void SpawnAlien() {
@@ -36,6 +33,10 @@ public class EnemyManager : MonoBehaviour {
             }
         }
         currentEnemies ++;
+    }
+
+    public void StartSpawning() {
+        InvokeRepeating("SpawnAlien", 0.0f, spawnTime);
     }
 
     public void IncreaseSpawn() {

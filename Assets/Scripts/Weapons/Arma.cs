@@ -27,6 +27,7 @@ public abstract class Arma : MonoBehaviour {
     protected AudioSource audioSource;
     public AudioClip shotSound;
     public AudioClip reloadSound;
+    public AudioClip emptySound;
     public AudioClip[] ricochet;
 
     //Ayuda para lógica de disparos
@@ -42,9 +43,9 @@ public abstract class Arma : MonoBehaviour {
         if ((currentAmmo <= 0) && (!reloading) && (currentClips > 0) && (currentAmmo < maxAmmo)) {
             Reload();
         }
-        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Shooting") && !reloading) {
+        else if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Shooting") && !reloading && currentClips >= 0 && currentAmmo > 0) {
             animacion.SetTrigger("Shoot");
-            camara.transform.Rotate(0, Random.Range(-1.0f, 1.0f), 0);
+            PlayerController.instance.transform.Rotate(0, Random.Range(-1.0f, 1.0f), 0);
             camara.transform.Rotate(Random.Range(-1.0f, 1.0f), 0, 0);
             ShowFlash();
             smoke.Play();
@@ -52,12 +53,15 @@ public abstract class Arma : MonoBehaviour {
             currentAmmo--;
             DetectHit();
         }
+        else {
+            audioSource.PlayOneShot(emptySound);
+        }
         HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
     }
 
     public void Reload() {
         reloading = true;
-        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload")) {
+        if (!animacion.GetCurrentAnimatorStateInfo(0).IsName("Reload") && (currentClips > 0)) {
             animacion.SetTrigger("Reload");
             audioSource.PlayOneShot(reloadSound);
             StartCoroutine(FillAmmo());
@@ -74,7 +78,8 @@ public abstract class Arma : MonoBehaviour {
     public void Hide() {
         reloading = false;
         //animacion.SetTrigger("Hide");
-        StartCoroutine(Disable());
+        //StartCoroutine(Disable());
+        gameObject.SetActive(false);
     }
 
     //Detectar si se disparó a un enemigo o al escenario.
@@ -125,7 +130,7 @@ public abstract class Arma : MonoBehaviour {
     }
 
     IEnumerator Disable() {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.0f);
         gameObject.SetActive(false);
     }
 }

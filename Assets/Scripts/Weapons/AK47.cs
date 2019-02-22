@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AK47 : Arma{
     void Start() {
@@ -10,6 +8,7 @@ public class AK47 : Arma{
         maxAmmo = 30;
         currentAmmo = maxAmmo;
         currentClips = 5;
+        HUDManager.instance.setAmmoLevel(currentAmmo, maxAmmo);
         HUDManager.instance.setClips(currentClips);
         reloadTime = 3.0f;
         smoke = GetComponentInChildren<ParticleSystem>();

@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     //Modelos, cámaras y animaciones
@@ -19,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 
     //Manejo de inventario
     public Arma[] inventory;
-    private int currentWeapon;
+    public int currentWeapon;
 
     //Manejo de audio
     private AudioSource audioSource;
@@ -31,15 +29,14 @@ public class PlayerController : MonoBehaviour {
     public int maxShield;
     public int currentShield;
     public int currentMoney;
-    public bool openPanel;
 
     void Awake () {
-        openPanel = false;
         instance = this;
         jugador = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         cuerpo = GetComponent<Rigidbody>();
         camara = Camera.main;
+        speedRot = DataManager.instance.mouseSesitivity;
         
         //Inicializando variables propiedades del jugador.
         maxLife = 100;
@@ -47,37 +44,45 @@ public class PlayerController : MonoBehaviour {
         maxShield = 100;
         currentShield = maxShield;
         currentWeapon = 0;
-        currentMoney = 100;
+        currentMoney = 0;
         HUDManager.instance.setMoney(currentMoney);
 
         alive = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Physics.Raycast(camara.transform.position, camara.transform.forward, 500, 1 << 9)) { //La capa 9 es la de enemigos.
-            HUDManager.instance.setHighCrosshairAlpha();
-        }
-        else {
-            HUDManager.instance.setLowCrosshairAlpha();
-        }
-        if (alive && !openPanel) {
-            Move();
-            Rotar();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                inventory[currentWeapon].Shoot();
+	void Update () {
+        if (alive) {
+            if (!ElectricPanel.instance.epPanelOpen && !PauseManager.instance.pausePanelOpen && !StoreManager.instance.storePanelOpen) {
+                Move();
+                Rotar();
+                CheckSight();
+                if (Input.GetKeyDown(KeyCode.Mouse0) && ObjectivesManager.instance.currentObjective > 1) {
+                    inventory[currentWeapon].Shoot();
+                }
+                if (Input.GetKey(KeyCode.Mouse0) && inventory[currentWeapon].isAuto) {
+                    inventory[currentWeapon].Shoot();
+                }
+                if (Input.GetKeyDown(KeyCode.R)) {
+                    inventory[currentWeapon].Reload();
+                }
+                if (Input.GetKeyDown(KeyCode.Tab) && ObjectivesManager.instance.currentObjective > 1) {
+                    ChangeWeapon();
+                }
+                if (Input.GetKeyDown(KeyCode.Escape)) {
+                    if (ObjectivesManager.instance.currentObjective != 1) {
+                        inventory[currentWeapon].Hide();
+                    }
+                    PauseManager.instance.ShowPause();
+                }
             }
-            if (Input.GetKey(KeyCode.Mouse0) && inventory[currentWeapon].isAuto) {
-                inventory[currentWeapon].Shoot();
+            else if (Input.GetKeyDown(KeyCode.Escape) && PauseManager.instance.pausePanelOpen) {
+                PauseManager.instance.ClosePause();
+                if (ObjectivesManager.instance.currentObjective != 1) {
+                    inventory[currentWeapon].Withdraw();
+                }
             }
-            if (Input.GetKeyDown(KeyCode.R)) {
-                inventory[currentWeapon].Reload();
-            }
-            if (Input.GetKeyDown(KeyCode.Tab)) {
-                ChangeWeapon();
-            }
-        }        
+        }
+        
     }
 
     void Move() {
@@ -101,7 +106,6 @@ public class PlayerController : MonoBehaviour {
 
     //MODIFICAR ESTE MÉTODO AL AGREGAR MÁS ARMAS.
     void ChangeWeapon() {
-        Debug.Log("Cambio de arma.");
         if (currentWeapon == inventory.Length-1) { //Si es la última arma, se cambia a la primera.
             inventory[currentWeapon].Hide();
             currentWeapon = 0;
@@ -113,6 +117,15 @@ public class PlayerController : MonoBehaviour {
             inventory[currentWeapon].Withdraw();
         }        
         
+    }
+
+    void CheckSight() {
+        if (Physics.Raycast(camara.transform.position, camara.transform.forward, 500, 1 << 9)) { //La capa 9 es la de enemigos.
+            HUDManager.instance.setHighCrosshairAlpha();
+        }
+        else {
+            HUDManager.instance.setLowCrosshairAlpha();
+        }
     }
 
     void TakeDamage(string tipoEnemigo) {
@@ -140,7 +153,9 @@ public class PlayerController : MonoBehaviour {
         inventory[currentWeapon].gameObject.SetActive(false);
         camara.GetComponent<Animator>().SetTrigger("Die");
         GameManager.instance.ShowDeathScreen();
-        if (openPanel) SendMessage("ClosePanel");
+        if (PauseManager.instance.pausePanelOpen) PauseManager.instance.ClosePause();
+        if (StoreManager.instance.storePanelOpen) StoreManager.instance.ClosePanel();
+        if (ElectricPanel.instance.epPanelOpen) ElectricPanel.instance.ClosePanel();
         ObjectivesManager.instance.StopAllCoroutines();
         StartCoroutine(ShowEnd());        
     }
@@ -148,6 +163,7 @@ public class PlayerController : MonoBehaviour {
     IEnumerator ShowEnd() {
         yield return new WaitForSeconds(5.0f);
         GameManager.instance.dead = true;
-        GameManager.instance.exit = true;
+        GameManager.instance.playing = false;
+        GameManager.instance.FadeScreen(true);
     }
 }

@@ -13,7 +13,7 @@ public class ObjectivesManager : MonoBehaviour {
     
     public GameObject []objects;
     public Vector3[] pos;
-    float timeLeft = 300.0f;
+    float timeLeft = 100.0f;
 
     void Start() {
         objectivesAudio = GetComponent<AudioSource>();
@@ -24,7 +24,7 @@ public class ObjectivesManager : MonoBehaviour {
     }
 
     void Update () {
-        if (currentObjective == 6) {
+        if (currentObjective == 7) {
             timeLeft -= Time.deltaTime;
             objDesc.SetText("Derrota alienígenas por " + (int)timeLeft + " segundos mientras el personal evacúa la facultad.");
         }
@@ -53,40 +53,43 @@ public class ObjectivesManager : MonoBehaviour {
             objectivesAudio.PlayOneShot(completedAudio);
         }
     }
-
     public void StartObjective1() {
+        EnableObjective("Conseguir un arma. Dicen que los porros esconden armas atrás de la biblioteca.");
+    }
+
+    public void StartObjective2() {
         EnableObjective("Conseguir un libro de circuitos eléctricos. Seguro hay alguno tirado en alguna parte de esta facultad.");
     }    
 
-    public void StartObjective2() {
+    public void StartObjective3() {
         EnableObjective("Ir con Don Rata y comprar un multímetro.");
     }
 
-    public void StartObjective3() {
+    public void StartObjective4() {
         EnableObjective("Ir al panel eléctrico de la facultad y analizarlo.");
     }
 
-    public void StartObjective4() {
+    public void StartObjective5() {
         EnableObjective("Conseguir un fusible. Seguro hay alguno tirado en alguna parte de esta facultad.");
     }    
 
-    public void StartObjective5() {
+    public void StartObjective6() {
         EnableObjective("Ir al panel eléctrico de la facultad y repararlo.");
     }
 
-    public void StartObjective6() {
-        EnableObjective("Derrota alienígenas por 300 segundos mientras el personal evacúa la facultad.");
+    public void StartObjective7() {
+        EnableObjective("Derrota alienígenas por 100 segundos mientras el personal evacúa la facultad.");
         StartCoroutine(killAliens());
         EnemyManager.instance.IncreaseSpawn();
     }
 
-    public void StartObjective7() {
+    public void StartObjective8() {
         EnableObjective("Escapa de la facultad por alguna de sus salidas.");
     }
 
     IEnumerator killAliens() {
-        yield return new WaitForSeconds(5.0f);
-        StartObjective7();
+        yield return new WaitForSeconds(timeLeft);
+        StartObjective8();
     }
 
     public void EndGame() {

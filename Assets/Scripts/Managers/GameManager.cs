@@ -1,24 +1,26 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
-    //public GameObject pauseScreen;
-    public GameObject deathScreen;
+    //Audio
     private AudioSource gameAudio;
     public AudioClip hover;
     public AudioClip clic;
 
     //Variables para transición de salida.
-    public Image exitPanel;
+    public GameObject deathScreen;
+    public Image fadePanel;
     public Color startColor;
     public Color endColor;
-    private float timeLeft = 3.0f;
+    private float fadeTime;
     public static GameManager instance;
-    public bool exit;
+    public bool playing;
     public bool dead;
+    public bool inMenu;
+    public bool watchingStory;
 
     //Variables para puntaje
     public GameObject scoreScreen;
@@ -30,30 +32,36 @@ public class GameManager : MonoBehaviour {
     
     void Awake() {
         gameAudio = GetComponent<AudioSource>();
-        gameTime = 0.0f;
+        DataManager.instance.GetData();
+        fadeTime = 3.0f;
         instance = this;
-        exit = false;
+        playing = false;
+        watchingStory = true;
+    }
+
+    void Start() {
+        StoryManager.instance.ShowStory();
     }
 
     void Update() {
-        if (!exit) {
+        if (playing && !inMenu && !watchingStory) {
             gameTime += Time.deltaTime;
         }
-        else {
+        else if (!playing && !inMenu && !watchingStory) {
             gameTime += 0;
-            FadeScreen();
+            ShowResults();
         }
     }
 
-    void FadeScreen() {
-        if (exit) {
-            timeLeft -= Time.deltaTime;
-            timeLeft /= 3;
-            exitPanel.color = Color.Lerp(startColor, endColor, timeLeft);
+    public void FadeScreen(bool fading) {
+        if (fading) {
+            fadeTime -= Time.deltaTime;
+            fadeTime /= 3;
+            fadePanel.color = Color.Lerp(startColor, endColor, fadeTime);
         }
-        if (timeLeft <= 0) {
-            exit = false;
-            StartCoroutine(ShowResults());
+        if (fadeTime <= 0) {
+            fading = false;
+            playing = true;
         }
     }
 
@@ -63,28 +71,48 @@ public class GameManager : MonoBehaviour {
 
     public void LoadMenu() {
         gameAudio.PlayOneShot(clic);
-        MainMenu.instance.LoadMenu();
+        SceneManager.LoadScene(0);
+        inMenu = true;
+        playing = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    public void LoadGame() {
+    public void LoadSinglePlayer() {
         gameAudio.PlayOneShot(clic);
-        MainMenu.instance.LoadMenu();
-        MainMenu.instance.LoadSinglePlayer();
+        gameTime = 0.0f;
+        playing = true;
+        inMenu = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        SceneManager.LoadScene(1);
     }
 
-    public void Pause() {
-
+    public void LoadMultiPlayer() {
+        gameAudio.PlayOneShot(clic);
     }
-
+    
     public void Hover() {
         gameAudio.PlayOneShot(hover);
     }
 
-    IEnumerator ShowResults() {
-        yield return new WaitForSeconds(1.0f);
+    public void Clic() {
+        gameAudio.PlayOneShot(clic);
+    }
 
-        float minutes = Mathf.Floor(gameTime / 60);
-        int seconds = Mathf.RoundToInt(gameTime % 60);
+    public void ExitGame() {
+        FadeScreen(true);
+        gameAudio.PlayOneShot(clic);
+        Application.Quit();
+    }
+
+    void ShowResults() {
+        FadeScreen(true);
+        StartCoroutine(ShowResultsScreen());
+    }
+
+    IEnumerator ShowResultsScreen() {
+        yield return new WaitForSeconds(1.0f);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -95,7 +123,7 @@ public class GameManager : MonoBehaviour {
             stateText.SetText("Muerto");
             objectivesText.SetText(ObjectivesManager.instance.objectivesCompleted.ToString());
         }
-        else if (ObjectivesManager.instance.objectivesCompleted < 7 && !dead) {
+        else if (ObjectivesManager.instance.objectivesCompleted < 8 && !dead) {
             stateText.SetText("Escapó");
             objectivesText.SetText(ObjectivesManager.instance.objectivesCompleted.ToString());
         }
@@ -103,18 +131,29 @@ public class GameManager : MonoBehaviour {
             stateText.SetText("¡Héroe!");
             objectivesText.SetText("¡Todos!");
         }
+        timeText.SetText(FormatTime(gameTime));
+        killsText.SetText(EnemyManager.instance.kills.ToString());
+    }
+
+    public string FormatTime(float time) {
+        float minutes = Mathf.Floor(gameTime / 60);
+        int seconds = Mathf.RoundToInt(gameTime % 60);
+
         if (minutes < 10 && seconds < 10) {
-            timeText.SetText("0" + minutes +":0"+seconds);
+            return ("0" + minutes + ":0" + seconds);
         }
         else if (minutes < 10 && seconds >= 10) {
-            timeText.SetText("0" + minutes + ":" + seconds);
+            return ("0" + minutes + ":" + seconds);
         }
         else if (minutes >= 10 && seconds < 10) {
-            timeText.SetText(minutes + ":0" + seconds);
+            return (minutes + ":0" + seconds);
         }
         else if (minutes >= 10 && seconds >= 10) {
-            timeText.SetText(minutes + ":" + seconds);
+            return (minutes + ":" + seconds);
         }
-        killsText.SetText(EnemyManager.instance.kills.ToString());
+        else {
+            return "";
+        }
+        
     }
 }

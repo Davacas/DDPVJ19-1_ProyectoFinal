@@ -1,70 +1,76 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using UnityEngine;
+using TMPro;
 
 public class MainMenu : MonoBehaviour {
-    public static MainMenu instance;
-    private AudioSource menuAudio;
-    public AudioClip hover;
-    public AudioClip clic;
-    public Image fade;
-    public Color startColor;
-    public Color endColor;
-    private float timeLeft = 3.0f;
     private bool loading;
-
+    public MenuTexts texts;
+    public TextMeshProUGUI descText;
+    public GameObject optionsPanel;
 
     void Start() {
-        menuAudio = GetComponent<AudioSource>();
-        instance = this;
         loading = false;
-        AudioManager.instance.SetMusicVolume(0);
-        AudioManager.instance.SetSFXVolume(0);
+        GameManager.instance.inMenu = true;
+        DefaultDesc();
     }
 
     void Update() {
-        FadeScreen();
-    }
-
-    void FadeScreen() {
         if (loading) {
-            fade.enabled = true;
-            timeLeft -= Time.deltaTime;
-            timeLeft /= 3;
-            fade.color = Color.Lerp(startColor, endColor, timeLeft);
+            GameManager.instance.FadeScreen(true);
         }
     }
 
-    public void LoadMenu() {
-        SceneManager.LoadScene(0);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+    public void DefaultDesc() {
+        optionsPanel.SetActive(false);
+        descText.SetText(texts.IntroText);
+        descText.alignment = TextAlignmentOptions.Center;
+    }
+
+    public void HoverSinglePlayer() {
+        GameManager.instance.Hover();
+        optionsPanel.SetActive(false);
+        descText.SetText(texts.SinglePlayerHover);
+        descText.alignment = TextAlignmentOptions.Center;
+    }
+
+    public void HoverMultiPlayer() {
+        GameManager.instance.Hover();
+        optionsPanel.SetActive(false);
+        descText.SetText(texts.MultiPlayerHover);
+        descText.alignment = TextAlignmentOptions.Center;
+    }
+
+    public void HoverOptions() {
+        GameManager.instance.Hover();
+        descText.SetText(texts.OptionsHover);
+        optionsPanel.SetActive(false);
+        descText.alignment = TextAlignmentOptions.Center;
+    }
+
+    public void HoverExit() {
+        GameManager.instance.Hover();
+        optionsPanel.SetActive(false);
+        descText.SetText(texts.ExitHover);
     }
 
     public void LoadSinglePlayer() {
         loading = true;
-        menuAudio.PlayOneShot(clic);
-        SceneManager.LoadScene(1);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        StartCoroutine(DelayLoad());
     }
 
-    public void LoadMultiPlayer() {
-        menuAudio.PlayOneShot(clic);
-        Debug.Log("Presionaste Multiplayer.");
+    public void ShowOptions() {
+        optionsPanel.SetActive(true);
+        descText.alignment = TextAlignmentOptions.TopLeft;
     }
 
-    public void Options() {
-        menuAudio.PlayOneShot(clic);
-        Debug.Log("Presionaste Opciones.");
+    public void QuitGame() {
+        loading = true;
+        GameManager.instance.ExitGame();
     }
 
-    public void ExitGame() {
-        menuAudio.PlayOneShot(clic);
-        Application.Quit();
-    }
+    IEnumerator DelayLoad() {
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.LoadSinglePlayer();
 
-    public void Hover() {
-        menuAudio.PlayOneShot(hover);
-    }
+    } 
 }

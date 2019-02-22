@@ -14,14 +14,14 @@ public class GetBook : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider collider) {
-        if (collider.gameObject.tag == "Player" && ObjectivesManager.instance.currentObjective == 1) {
+        if (collider.gameObject.tag == "Player" && ObjectivesManager.instance.currentObjective == 2) {
             bookCollider.enabled = false;
             foreach (var mesh in model) {
                 mesh.enabled = false;
             }
             bookLight.enabled = false;
             Destroy(this.gameObject, 1.0f);
-            ObjectivesManager.instance.StartObjective2();
+            ObjectivesManager.instance.StartObjective3();
         }
     }
 }

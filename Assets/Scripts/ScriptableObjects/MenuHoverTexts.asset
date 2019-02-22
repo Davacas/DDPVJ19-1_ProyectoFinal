@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7c0dad30e0ae04f8b4758ffd8e33d4, type: 3}
+  m_Name: MenuHoverTexts
+  m_EditorClassIdentifier: 
+  IntroText: "\xA1Gracias por jugar este demo! La versi\xF3n completa tendr\xE1 modo
+    multijugador con m\xE1s objetivos, diversos personajes con habilidades \xFAnicas,
+    diferentes tipos de enemigos, disponibilidad de todos los objetos de la tienda,
+    \xA1y m\xE1s!"
+  SinglePlayerHover: "\xA1Empieza a jugar!"
+  MultiPlayerHover: "Este modo a\xFAn no est\xE1 disponible."
+  OptionsHover: Cambia los ajustes del juego.
+  ExitHover: "Cerrar la aplicaci\xF3n."

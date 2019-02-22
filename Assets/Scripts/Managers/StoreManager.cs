@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -65,7 +64,7 @@ public class StoreManager : MonoBehaviour {
     public TextMeshProUGUI multimButtonText;
     public TextMeshProUGUI shopText;
     public GameObject storePanel;
-
+    
     //Sounds
     private AudioSource storeAudio;
     public AudioClip hover;
@@ -75,9 +74,13 @@ public class StoreManager : MonoBehaviour {
     public StoreProductInfo info; 
     enum Guns { Pistol, AK47 };
     private PlayerController player;
+    public static StoreManager instance;
+    public bool storePanelOpen;
 
     void Start() {
+        storePanelOpen = false;
         player = PlayerController.instance;
+        instance = this;
         storeAudio = GetComponent<AudioSource>();
 
         //Asignación de valores de consumibles.
@@ -152,7 +155,7 @@ public class StoreManager : MonoBehaviour {
     }
 
     public void OpenShop() {
-        player.openPanel = true;
+        storePanelOpen = true;
         storePanel.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -162,7 +165,7 @@ public class StoreManager : MonoBehaviour {
         storePanel.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        player.openPanel = false;
+        storePanelOpen = false;
     }
 
     public void BuyLife() {
@@ -211,13 +214,13 @@ public class StoreManager : MonoBehaviour {
     }
 
     public void BuyMultimeter() {
-        if (player.currentMoney >= info.multimeterPrice && !multimVendido && ObjectivesManager.instance.currentObjective == 2) {
+        if (player.currentMoney >= info.multimeterPrice && !multimVendido && ObjectivesManager.instance.currentObjective == 3) {
             player.currentMoney -= info.multimeterPrice;
             HUDManager.instance.setMoney(player.currentMoney);
             multimButtonText.SetText("Agotado");
             multimVendido = true;
             storeAudio.PlayOneShot(ObjectivesManager.instance.completedAudio);
-            ObjectivesManager.instance.StartObjective3();
+            ObjectivesManager.instance.StartObjective4();
             ClosePanel();
         }
         else {

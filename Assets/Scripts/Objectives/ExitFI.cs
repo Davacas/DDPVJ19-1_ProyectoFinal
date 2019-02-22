@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
 
 public class ExitFI : MonoBehaviour {
@@ -17,11 +14,11 @@ public class ExitFI : MonoBehaviour {
     void OnTriggerStay(Collider collider) {
         if (collider.gameObject.tag == "Player") {
             if (Input.GetKeyDown(KeyCode.E)) {
-                if (ObjectivesManager.instance.currentObjective == 7) {
+                if (ObjectivesManager.instance.currentObjective == 8) {
                     ObjectivesManager.instance.EndGame();
                 }
-                PlayerController.instance.alive = false;
-                GameManager.instance.exit = true;
+                PlayerController.instance.alive = false;    //Para que no se pueda mover ni ser atacado.
+                GameManager.instance.playing = false;       //Para mostrar pantalla con resultados.
                 ObjectivesManager.instance.StopAllCoroutines();
             }
         }
@@ -32,6 +29,4 @@ public class ExitFI : MonoBehaviour {
             interactText.gameObject.SetActive(false);
         }
     }
-
-
 }
