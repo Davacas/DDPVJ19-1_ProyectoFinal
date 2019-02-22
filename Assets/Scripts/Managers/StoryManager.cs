@@ -27,22 +27,21 @@ public class StoryManager : MonoBehaviour {
         storyPanel.SetActive(true);
 
         music.PlayOneShot(storyMusic);
-        InvokeRepeating("ScrollMessage", 0.0f, 2.25f);
+        InvokeRepeating("ScrollMessage", 0.0f, 2.59f);
     }
 
     void ScrollMessage() {
         messages++;
         Vector3 offset = new Vector3(0.0f, 100.0f, 0.0f);
         foreach (var msg in msgs) {
-            msg.transform.position += offset;
-            if (msg.transform.position.y < 250 || msg.transform.position.y > 850) {
+            msg.transform.localPosition += offset;
+            if (msg.transform.localPosition.y < -250 || msg.transform.localPosition.y > 350) {
                 msg.SetActive(false);
             }
             else {
                 msg.SetActive(true);
             }
         }
-        print(messages);
         if (messages > 24) {
             StartGame();
         }
