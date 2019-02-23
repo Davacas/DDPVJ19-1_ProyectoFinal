@@ -7,12 +7,14 @@ public class StoryManager : MonoBehaviour {
     public AudioClip storyMusic;
     public GameObject[] msgs;
     public GameObject storyPanel;
+    public GameObject hudPanel;
     public static StoryManager instance;
 
     private int messages = 0;
 
     void Start() {
         instance = this;
+        ShowStory();
     }
 
     void Update() {
@@ -25,9 +27,10 @@ public class StoryManager : MonoBehaviour {
         PauseManager.instance.ShowPause();
         PauseManager.instance.mainPanel.SetActive(false);
         storyPanel.SetActive(true);
+        hudPanel.SetActive(false);
 
         music.PlayOneShot(storyMusic);
-        InvokeRepeating("ScrollMessage", 0.0f, 2.59f);
+        InvokeRepeating("ScrollMessage", 0.0f, 2.589f);
     }
 
     void ScrollMessage() {
@@ -55,7 +58,7 @@ public class StoryManager : MonoBehaviour {
         GameManager.instance.watchingStory = false;
         EnemyManager.instance.StartSpawning();
         storyPanel.SetActive(false);
-        Time.timeScale = 1.0f;
+        hudPanel.SetActive(true);
         music.Stop();
         music.Play();
     }

@@ -1,19 +1,19 @@
 ✓ 	(2 pts) Plataforma StandAlone o móvil (el prototipo debe ejecutarse en un dispositivo físico).
--	(2 pts) Estado inicial y final del juego.
+✓	(2 pts) Estado inicial y final del juego.
 ✓ 	(2 pts) Interfaces (menú inicial y HUD).
 ✓ 	(3 pts) Movimiento de cámara dinámico.
 ✓ 	(5 pts) Controlador de personaje principal.
 ✓ 	(3 pts) Uso de animaciones skeletales con Mecanim (avatars, blendtrees, state machines, layers y retargeting), en por lo menos en dos elementos.
 ✓ 	(5 pts) Uso de animaciones con el sistema interno de Unity, en por lo menos dos elementos.
--  	(5 pts) Iluminación dinámica y con lightmapping.
+✓  	(5 pts) Iluminación dinámica y con lightmapping.
 ✓ 	(5 pts) Uso de ítems para puntuación, booster o coleccionable.
-  	(5 pts) Guardar y cargar de avances del jugador.
+✓  	(5 pts) Guardar y cargar de avances del jugador.
 ✓ 	(10 pts) Mínimo dos enemigos diferentes, con comportamientos diferentes.
 ✓ 	(5 pts) Uso de Navigation (NavMeshAgent, NavMeshGeometry).
 ✓ 	(3 pts) Uso de rigidbodies y colliders.
 ✓ 	(5 pts) Aplicación de fuerzas en rigidbodies.
 ✓ 	(5 pts) Utilizar por lo menos dos efectos de partículas diferentes.
 ✓ 	(5 pts) Música de fondo y por lo menos dos efectos de sonido diferentes.
--	(10 pts) Lectura de archivos para configuración de niveles y/o enemigos.
+✓	(10 pts) Lectura de archivos para configuración de niveles y/o enemigos.
 ✓	(15 pts) Uso de dos vertexshaders,fragmentshaders, surfaceshaders o efectos de postprocesamiento, personalizados y diferentes (diferentes a los que tiene Unity por default o a los vistos en clase).
--	(5 pts) El juego debe contener más de dos niveles, se tendrá como excepción, si el único nivel es muy grande
+✓	(5 pts) El juego debe contener más de dos niveles, se tendrá como excepción, si el único nivel es muy grande
